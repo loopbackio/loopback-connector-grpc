@@ -42,22 +42,22 @@ message FindResponse {
 
 service NoteService {
   rpc create (Note) returns (Note) {
-    option (loopback.http) = {
+    option (google.api.http) = {
       post: "/notes"
       body: "*"
     };
   };
   rpc findById (FindByIdRequest) returns (Note) {
-    option (loopback.http) = {
+    option (google.api.http) = {
       get: "/notes/{id}"
     };
   };
   rpc find (FindRequest) returns (FindResponse) {
-    option (loopback.http) = {
+    option (google.api.http) = {
       get: "/notes"
     };
   };
-  option (loopback.http) = {
+  option (google.api.http) = {
     description: "Note Service"
   };
 };
