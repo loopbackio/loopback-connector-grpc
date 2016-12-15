@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package demo;
+option java_multiple_files = true;
+option java_package = "com.ibm.apiconnect.demo.polyglot";
+option java_outer_classname = "NoteMessage";
+
+// See extensions at https://github.com/googleapis/googleapis/tree/master/google/api
+
+/*
+import "google/protobuf/any.proto";
+message Filter {
+  google.protobuf.Any where = 1;
+  int32 limit = 2;
+  int32 offset = 3;
+  repeated string order = 4;
+  google.protobuf.Any fields = 5;
+  google.protobuf.Any include = 6;
+};
+*/
+
+message Note {
+  option(loopback.model) = {
+    name: "Note"
+  };
+  int32 id = 1;
+  string title = 2;
+  string content = 3;
+};
+
+message FindByIdRequest {
+  int32 id = 1;
+};
+
+message FindRequest {
+  // Filter filter = 1;
+};
+
+message FindResponse {
+  repeated Note notes = 1;
+};
+
+service NoteService {
+  rpc create (Note) returns (Note) {
+    option (loopback.http) = {
+      post: "/notes"
+      body: "*"
+    };
+  };
+  rpc findById (FindByIdRequest) returns (Note) {
+    option (loopback.http) = {
+      get: "/notes/{id}"
+    };
+  };
+  rpc find (FindRequest) returns (FindResponse) {
+    option (loopback.http) = {
+      get: "/notes"
+    };
+  };
+  option (loopback.http) = {
+    description: "Note Service"
+  };
+};
+

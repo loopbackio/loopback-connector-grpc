@@ -1,0 +1,29 @@
+{
+  "name": "loopback-connector-grpc",
+  "version": "1.0.0",
+  "description": "LoopBack connector for gRPC services",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint .",
+    "test": "mocha",
+    "posttest": "npm run lint"
+  },
+  "dependencies": {
+    "debug": "^2.2.0",
+    "grpc": "^1.0.0",
+    "js-yaml": "^3.6.0"
+  },
+  "devDependencies": {
+    "eslint": "^2.7.0",
+    "eslint-config-loopback": "^1.0.0",
+    "loopback": "2.x.x",
+    "loopback-datasource-juggler": "2.x.x",
+    "mocha": "^3.0.2",
+    "should": "^8.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/strongloop/loopback-connector-grpc.git"
+  },
+  "license": "SEE LICENSE IN LICENSE.md"
+}
