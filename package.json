@@ -9,17 +9,17 @@
     "posttest": "npm run lint"
   },
   "dependencies": {
-    "debug": "^2.2.0",
-    "grpc": "^1.0.0",
-    "js-yaml": "^3.6.0"
+    "debug": "^2.6.0",
+    "grpc": "^1.1.2",
+    "js-yaml": "^3.8.1"
   },
   "devDependencies": {
-    "eslint": "^2.7.0",
-    "eslint-config-loopback": "^1.0.0",
-    "loopback": "2.x.x",
-    "loopback-datasource-juggler": "2.x.x",
-    "mocha": "^3.0.2",
-    "should": "^8.3.0"
+    "eslint": "^3.15.0",
+    "eslint-config-loopback": "^8.0.0",
+    "loopback": "3.x.x",
+    "loopback-datasource-juggler": "3.x.x",
+    "mocha": "^3.2.0",
+    "should": "^11.2.0"
   },
   "repository": {
     "type": "git",

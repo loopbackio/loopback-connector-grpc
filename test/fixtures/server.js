@@ -1,3 +1,5 @@
+'use strict';
+
 var path = require('path');
 var PROTO_PATH = path.join(__dirname, './note.proto');
 var debug = require('debug')('loopback:connector:grpc');
@@ -31,7 +33,7 @@ function find(call, callback) {
   for (var i in notes) {
     values.push(notes[i]);
   }
-  callback(null, { notes: values });
+  callback(null, {notes: values});
 }
 
 /**

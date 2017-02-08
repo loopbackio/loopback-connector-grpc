@@ -46,7 +46,7 @@ Specify the options for the data source with the following properties.
 | connector | Must be `'loopback-connector-grpc'` to specify gRPC connector| None |
 |spec      | HTTP URL or path to the gRPC specification file (with file name extension `.yaml/.yml` or `.json`).  File path must be relative to current working directory (`process.cwd()`).| None |
 |validate | When `true`, validates provided `spec` against gRPC specification 2.0 before initializing a data source. | `false`|
-| security | Security configuration for making authenticated requests to the API.  The `security.type` property specifies authentication type, one of: Basic authentication (`basic`), API Key (`apiKey`), or OAuth2 (`oauth2`). | `basic` |
+| security | Security configuration for making authenticated requests to the API. | None |
 
 ### Authentication
 
@@ -54,35 +54,11 @@ Basic authentication:
 
 ```javascript
 security: {
-  type: 'basic', // default type, not to be changed
-  username: 'the user name',
-  password: 'password'
+  rootCerts: 'rootCerts.crt', // Path to root certs
+  key: 'gprc.key', // Path to client SSL private key
+  cert: 'grpc.crt' // Path to client SSL certificate
 }
 ```
-
-API Key:
-
-```javascript
-security: {
-  type: 'apiKey', // default type, not to be changed
-  name: 'api_key',
-  key: 'yourAPIKey',
-  in: 'query' // or 'header'
-}
-```
-
-OAuth2:
-
-```javascript
-security:{
-  type: 'oauth2', // default type, not to be changed
-  name: 'oauth_scheme',
-  accessToken: 'sampleAccessToken', // access token
-  in: 'query' // defaults to `header` if not set
-}
-```
-
-**Note**: The value of the `name` property must correspond to a security scheme declared in the [Security Definitions object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#security-definitions-object) within the `spec` document.
 
 ### Creating a model from the gRPC data source
 

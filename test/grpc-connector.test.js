@@ -1,3 +1,5 @@
+'use strict';
+
 var assert = require('assert');
 var should = require('should');
 var loopback = require('loopback');
@@ -47,7 +49,7 @@ describe('grpc connector', function() {
 
       it('supports model methods', function(done) {
         var NoteService = ds.createModel('NoteService', {});
-        NoteService.create({ title: 't1', content: 'c1' },
+        NoteService.create({title: 't1', content: 'c1'},
           function(err, result) {
             should.not.exist(err);
             done();
@@ -68,14 +70,13 @@ describe('grpc connector', function() {
     });
 
     it('invokes the NoteService', function(done) {
-      NoteService.create({ title: 't2', content: 'c2' }, function(err, result) {
+      NoteService.create({title: 't2', content: 'c2'}, function(err, result) {
         result.id.should.eql(2);
         done();
       });
     });
   });
 });
-
 
 function createDataSource(spec, remotingEnabled) {
   return loopback.createDataSource('grpc', {
