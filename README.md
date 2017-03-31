@@ -84,7 +84,7 @@ Once you define the model, you can wrap or mediate it to define new methods. The
 
 ```javascript
 PetService.searchPet = function(petID, cb){
-  PetService.getPetById({petId: petID, function(err, res){
+  PetService.getPetById({petId: petID}, function(err, res){
     if(err) cb(err, null);
     var result = res.data;
     cb(null, result);
@@ -95,8 +95,8 @@ PetService.searchPet = function(petID, cb){
 This custom method on the `PetService` model can be exposed as REST API end-point. It uses `loopback.remoteMethod` to define the mappings:
 
 ```javascript
-loopback.remoteMethod(
-  PetService.searchPet, {
+PetService.remoteMethod(
+  'searchPet', {
     accepts: [
       { arg: 'petID', type: 'string', required: true,
         http: { source: 'query' }
