@@ -1,6 +1,6 @@
 {
   "name": "loopback-connector-grpc",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "LoopBack connector for gRPC services",
   "main": "index.js",
   "scripts": {
