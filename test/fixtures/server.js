@@ -43,7 +43,7 @@ function find(call, callback) {
 function main() {
   var proto = grpc.load(PROTO_PATH);
   var server = new grpc.Server();
-  server.addProtoService(proto.demo.NoteService.service, {
+  server.addService(proto.demo.NoteService.service, {
     create: create,
     findById: findById,
     find: find,

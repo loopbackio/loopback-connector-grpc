@@ -40,7 +40,7 @@ describe('grpc connector', function() {
       });
 
       it('creates models', function(done) {
-        var NoteService = ds.createModel('NoteService', {});
+        var NoteService = ds.createModel('NoteService', {}, {base: 'Model'});
         (typeof NoteService.findById).should.eql('function');
         (typeof NoteService.find).should.eql('function');
         (typeof NoteService.create).should.eql('function');
@@ -48,7 +48,7 @@ describe('grpc connector', function() {
       });
 
       it('supports model methods', function(done) {
-        var NoteService = ds.createModel('NoteService', {});
+        var NoteService = ds.createModel('NoteService', {}, {base: 'Model'});
         NoteService.create({title: 't1', content: 'c1'},
           function(err, result) {
             should.not.exist(err);
@@ -64,7 +64,7 @@ describe('grpc connector', function() {
     before(function(done) {
       ds = createDataSource(protoFile, true);
       ds.on('connected', function() {
-        NoteService = ds.createModel('NoteService', {});
+        NoteService = ds.createModel('NoteService', {}, {base: 'Model'});
         done();
       });
     });
