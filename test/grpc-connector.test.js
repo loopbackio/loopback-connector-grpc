@@ -55,6 +55,13 @@ describe('grpc connector', function() {
             done();
           });
       });
+
+      it('supports model methods returning a Promise', function() {
+        var NoteService = ds.createModel('NoteService', {}, {base: 'Model'});
+        return NoteService.findById({id: 1}).then(function(res) {
+          res.should.have.properties({title: 't1', content: 'c1'});
+        });
+      });
     });
   });
 

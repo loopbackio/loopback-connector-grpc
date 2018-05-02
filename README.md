@@ -79,6 +79,18 @@ PetService.getPetById({petId: 1}, function (err, res){
 });
 ```
 
+The model methods can also be called as promises:
+
+```javascript
+PetService.getPetById({petId: 1}).then(function(res) {
+  ...
+}, function(err) {
+  ...
+});
+// in async/await flavor
+const res = await PetService.getPetById({petId: 1});
+```
+
 ### Extend a model to wrap/mediate API Operations
 Once you define the model, you can wrap or mediate it to define new methods. The following example simplifies the `getPetById` operation to a method that takes `petID` and returns a Pet instance.
 
