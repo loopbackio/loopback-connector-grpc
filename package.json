@@ -3,6 +3,9 @@
   "version": "1.2.0",
   "description": "LoopBack connector for gRPC services",
   "main": "index.js",
+  "engines": {
+    "node": ">=8"
+  },
   "scripts": {
     "lint": "eslint .",
     "test": "mocha",
