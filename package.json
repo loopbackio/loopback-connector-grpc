@@ -3,6 +3,9 @@
   "version": "1.2.0",
   "description": "LoopBack connector for gRPC services",
   "main": "index.js",
+  "engines": {
+    "node": ">=8"
+  },
   "scripts": {
     "lint": "eslint .",
     "test": "mocha",
@@ -14,7 +17,7 @@
     "js-yaml": "^3.8.1"
   },
   "devDependencies": {
-    "eslint": "^3.18.0",
+    "eslint": "^4.18.2",
     "eslint-config-loopback": "^8.0.0",
     "loopback": "^3.5.0",
     "loopback-datasource-juggler": "^3.2.0",
