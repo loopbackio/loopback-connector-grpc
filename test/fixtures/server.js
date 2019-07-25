@@ -3,20 +3,20 @@
 
 'use strict';
 
-var path = require('path');
-var PROTO_PATH = path.join(__dirname, './note.proto');
-var debug = require('debug')('loopback:connector:grpc');
-var grpc = require('grpc');
+const path = require('path');
+const PROTO_PATH = path.join(__dirname, './note.proto');
+const debug = require('debug')('loopback:connector:grpc');
+const grpc = require('grpc');
 
-var notes = {};
-var index = 0;
+const notes = {};
+let index = 0;
 
 /**
  * Implements the SayHello RPC method.
  */
 function create(call, callback) {
   debug('create', call.request);
-  var note = call.request;
+  const note = call.request;
   index++;
   note.id = index;
   notes[index.toString()] = note;
@@ -25,15 +25,15 @@ function create(call, callback) {
 
 function findById(call, callback) {
   debug('findById', call.request);
-  var id = call.request.id;
-  var note = notes[id];
+  const id = call.request.id;
+  const note = notes[id];
   callback(null, note);
 }
 
 function find(call, callback) {
   debug('find', call.request);
-  var values = [];
-  for (var i in notes) {
+  const values = [];
+  for (const i in notes) {
     values.push(notes[i]);
   }
   callback(null, {notes: values});
@@ -44,14 +44,13 @@ function find(call, callback) {
  * sample server port
  */
 function main() {
-  var proto = grpc.load(PROTO_PATH);
-  var server = new grpc.Server();
+  const proto = grpc.load(PROTO_PATH);
+  const server = new grpc.Server();
   server.addService(proto.demo.NoteService.service, {
     create: create,
     findById: findById,
     find: find,
-  }
-  );
+  });
   server.bind('0.0.0.0:50051', grpc.ServerCredentials.createInsecure());
   server.start();
   return server;
