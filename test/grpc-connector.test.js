@@ -3,15 +3,15 @@
 
 'use strict';
 
-var assert = require('assert');
-var should = require('should');
-var loopback = require('loopback');
-var path = require('path');
-var protoFile = path.join(__dirname, './fixtures/note.proto');
+const assert = require('assert');
+const should = require('should');
+const loopback = require('loopback');
+const path = require('path');
+const protoFile = path.join(__dirname, './fixtures/note.proto');
 
 describe('grpc connector', function() {
-  var server = require('./fixtures/server');
-  var inst;
+  const server = require('./fixtures/server');
+  let inst;
 
   before(function() {
     inst = server();
@@ -24,7 +24,7 @@ describe('grpc connector', function() {
   describe('grpc client generation', function() {
     it('generates client from local grpc spec - .proto file',
       function(done) {
-        var ds = createDataSource(protoFile);
+        const ds = createDataSource(protoFile);
         ds.on('connected', function() {
           ds.connector.should.have.property('clients');
           done();
@@ -34,7 +34,7 @@ describe('grpc connector', function() {
 
   describe('models', function() {
     describe('models without remotingEnabled', function() {
-      var ds;
+      let ds;
       before(function(done) {
         ds = createDataSource(protoFile);
         ds.on('connected', function() {
@@ -43,7 +43,7 @@ describe('grpc connector', function() {
       });
 
       it('creates models', function(done) {
-        var NoteService = ds.createModel('NoteService', {}, {base: 'Model'});
+        const NoteService = ds.createModel('NoteService', {}, {base: 'Model'});
         (typeof NoteService.findById).should.eql('function');
         (typeof NoteService.find).should.eql('function');
         (typeof NoteService.create).should.eql('function');
@@ -51,7 +51,7 @@ describe('grpc connector', function() {
       });
 
       it('supports model methods', function(done) {
-        var NoteService = ds.createModel('NoteService', {}, {base: 'Model'});
+        const NoteService = ds.createModel('NoteService', {}, {base: 'Model'});
         NoteService.create({title: 't1', content: 'c1'},
           function(err, result) {
             should.not.exist(err);
@@ -60,7 +60,7 @@ describe('grpc connector', function() {
       });
 
       it('supports model methods returning a Promise', function() {
-        var NoteService = ds.createModel('NoteService', {}, {base: 'Model'});
+        const NoteService = ds.createModel('NoteService', {}, {base: 'Model'});
         return NoteService.findById({id: 1}).then(function(res) {
           res.should.have.properties({title: 't1', content: 'c1'});
         });
@@ -69,7 +69,7 @@ describe('grpc connector', function() {
   });
 
   describe('gRPC invocations', function() {
-    var ds, NoteService;
+    let ds, NoteService;
 
     before(function(done) {
       ds = createDataSource(protoFile, true);
