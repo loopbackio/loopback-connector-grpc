@@ -1,3 +1,19 @@
+2019-09-10, Version 1.3.0
+=========================
+
+ * chore: update dependencies (Raymond Feng)
+
+ * fix eslint violations (Nora)
+
+ * update eslint-config and mocha (Nora)
+
+ * add node 8 engine (Nora)
+
+ * update eslint dependency (Nora)
+
+ * chore: update copyrights years (Agnes Lin)
+
+
 2018-05-08, Version 1.2.0
 =========================
 
