@@ -3,7 +3,6 @@
 
 'use strict';
 
-const assert = require('assert');
 const should = require('should');
 const loopback = require('loopback');
 const path = require('path');

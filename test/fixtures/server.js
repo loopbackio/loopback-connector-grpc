@@ -7,6 +7,7 @@ const path = require('path');
 const PROTO_PATH = path.join(__dirname, './note.proto');
 const debug = require('debug')('loopback:connector:grpc');
 const grpc = require('grpc');
+const protoLoader = require('@grpc/proto-loader');
 
 const notes = {};
 let index = 0;
@@ -44,7 +45,8 @@ function find(call, callback) {
  * sample server port
  */
 function main() {
-  const proto = grpc.load(PROTO_PATH);
+  const pkg = protoLoader.loadSync(PROTO_PATH);
+  const proto = grpc.loadPackageDefinition(pkg);
   const server = new grpc.Server();
   server.addService(proto.demo.NoteService.service, {
     create: create,
