@@ -1,12 +1,14 @@
-// Copyright IBM Corp. 2016,2017. All Rights Reserved.
+// Copyright IBM Corp. 2016,2020. All Rights Reserved.
 // Node module: loopback-connector-grpc
+// This file is licensed under the MIT License.
+// License text available at https://opensource.org/licenses/MIT
 
 'use strict';
 
 const path = require('path');
 const PROTO_PATH = path.join(__dirname, './note.proto');
 const debug = require('debug')('loopback:connector:grpc');
-const grpc = require('grpc');
+const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
 
 const notes = {};
@@ -44,7 +46,7 @@ function find(call, callback) {
  * Starts an RPC server that receives requests for the Greeter service at the
  * sample server port
  */
-function main() {
+function main(port = '0.0.0.0:50051') {
   const pkg = protoLoader.loadSync(PROTO_PATH);
   const proto = grpc.loadPackageDefinition(pkg);
   const server = new grpc.Server();
@@ -53,13 +55,24 @@ function main() {
     findById: findById,
     find: find,
   });
-  server.bind('0.0.0.0:50051', grpc.ServerCredentials.createInsecure());
-  server.start();
-  return server;
+  return new Promise((resolve, reject) => {
+    server.bindAsync(
+      port,
+      grpc.ServerCredentials.createInsecure(),
+      (err, port) => {
+        if (err) return reject(err);
+        server.start();
+        resolve(server);
+      },
+    );
+  });
 }
 
 module.exports = main;
 
 if (module === require.main) {
-  main();
+  main().catch(err => {
+    console.error(err);
+    process.exit(1);
+  });
 }
