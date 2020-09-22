@@ -1,3 +1,11 @@
+2020-09-22, Version 2.0.0
+=========================
+
+ * feat: switch to @gprc/grpc-js and drop Node 8 (Raymond Feng)
+
+ * chore: improve issue and PR templates (Nora)
+
+
 2019-09-10, Version 1.3.0
 =========================
 
