@@ -1,5 +1,7 @@
-// Copyright IBM Corp. 2016,2018. All Rights Reserved.
+// Copyright IBM Corp. 2016,2020. All Rights Reserved.
 // Node module: loopback-connector-grpc
+// This file is licensed under the MIT License.
+// License text available at https://opensource.org/licenses/MIT
 
 'use strict';
 
@@ -8,35 +10,35 @@ const loopback = require('loopback');
 const path = require('path');
 const protoFile = path.join(__dirname, './fixtures/note.proto');
 
-describe('grpc connector', function() {
+describe('grpc connector', () => {
   const server = require('./fixtures/server');
   let inst;
 
-  before(function() {
-    inst = server();
+  before(async () => {
+    inst = await server('0.0.0.0:50000');
   });
 
-  after(function() {
-    inst.forceShutdown();
+  after(() => {
+    if (inst != null) inst.forceShutdown();
   });
 
-  describe('grpc client generation', function() {
+  describe('grpc client generation', () => {
     it('generates client from local grpc spec - .proto file',
       function(done) {
         const ds = createDataSource(protoFile);
-        ds.on('connected', function() {
+        ds.on('connected', () => {
           ds.connector.should.have.property('clients');
           done();
         });
       });
   });
 
-  describe('models', function() {
-    describe('models without remotingEnabled', function() {
+  describe('models', () => {
+    describe('models without remotingEnabled', () => {
       let ds;
       before(function(done) {
         ds = createDataSource(protoFile);
-        ds.on('connected', function() {
+        ds.on('connected', () => {
           done();
         });
       });
@@ -58,7 +60,7 @@ describe('grpc connector', function() {
           });
       });
 
-      it('supports model methods returning a Promise', function() {
+      it('supports model methods returning a Promise', () => {
         const NoteService = ds.createModel('NoteService', {}, {base: 'Model'});
         return NoteService.findById({id: 1}).then(function(res) {
           res.should.have.properties({title: 't1', content: 'c1'});
@@ -67,12 +69,12 @@ describe('grpc connector', function() {
     });
   });
 
-  describe('gRPC invocations', function() {
+  describe('gRPC invocations', () => {
     let ds, NoteService;
 
     before(function(done) {
       ds = createDataSource(protoFile, true);
-      ds.on('connected', function() {
+      ds.on('connected', () => {
         NoteService = ds.createModel('NoteService', {}, {base: 'Model'});
         done();
       });
@@ -91,6 +93,8 @@ function createDataSource(spec, remotingEnabled) {
   return loopback.createDataSource('grpc', {
     connector: require('../index'),
     spec: spec,
+    host: '127.0.0.1',
+    port: 50000,
     remotingEnabled: remotingEnabled,
   });
 }
