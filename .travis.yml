@@ -1,5 +1,15 @@
+arch:
+  - arm64
+  - ppc64le
+  - s390x
+branches:
+  only: master
 language: node_js
+before_install: npm install --global npm
+install: npm ci --ignore-scripts
+script: npm test --ignore-scripts
 node_js:
- - 10
- - 12
- - 14
+  - 10
+  - 12
+  - 14
+  - 16
