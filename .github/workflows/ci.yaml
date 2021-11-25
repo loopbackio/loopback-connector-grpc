@@ -15,12 +15,12 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node-version: [10, 12, 14, 16]
+        node-version: [10, 12, 14, 16, 17]
         include:
           - os: macos-latest
-            node-version: 14 # LTS
+            node-version: 16 # LTS
           - os: windows-latest
-            node-version: 14
+            node-version: 16
       fail-fast: false
     runs-on: ${{ matrix.os }}
     steps:
@@ -71,7 +71,7 @@ jobs:
       - name: Use Node.js 14
         uses: actions/setup-node@v2
         with:
-          node-version: 14
+          node-version: 16
       - name: Bootstrap project
         run: npm ci --ignore-scripts
       - name: Verify code linting
@@ -88,7 +88,7 @@ jobs:
       - name: Use Node.js 14
         uses: actions/setup-node@v2
         with:
-          node-version: 14
+          node-version: 16
       - name: Install monorepo tools
         run: npm ci --ignore-scripts
       - name: Verify commit linting
